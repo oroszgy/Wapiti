@@ -215,6 +215,11 @@ raw_t *rdr_readraw(rdr_t *rdr, FILE *file) {
 		char *line = rdr_readline(file);
 		if (line == NULL)
 			break;
+		
+		// Remove comments
+		int end = strcspn(line, "#");
+		line[end] = '\0';
+		
 		// Check for empty line marking the end of the current sequence
 		int len = strlen(line);
 		while (len != 0 && isspace(line[len - 1]))
